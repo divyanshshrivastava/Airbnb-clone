@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Add New Listing</title>
+    <!-- adjust the path to where your CSS actually is; add ?v=1 to bust cache -->
+    <link rel="stylesheet" href="/add.css" />
+  </head>
+  <body>
+    <div class="page-wrap">
+      <form class="add-listing" action="/listings" method="POST">
+        <h2>Add a New Listing</h2>
+
+        <div class="form-row">
+          <label for="title">Title</label>
+          <input id="title" name="title" type="text" required />
+        </div>
+
+        <div class="form-row">
+          <label for="price">Price</label>
+          <input id="price" name="price" type="number" min="0" required />
+        </div>
+
+        <div class="form-row">
+          <label for="location">Location</label>
+          <input id="location" name="location" type="text" required />
+        </div>
+
+        <div class="form-row">
+          <label for="country">Country</label>
+          <input id="country" name="country" type="text" required />
+        </div>
+
+        <div class="form-row full">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="5"
+            required
+            style="resize: none"
+          ></textarea>
+        </div>
+
+        <div class="form-row full">
+          <label for="image">Image</label>
+          <input id="image" name="image" type="file" accept="image/*" />
+        </div>
+
+        <button class="btn-primary" type="submit">Add Listing</button>
+      </form>
+    </div>
+  </body>
+</html>

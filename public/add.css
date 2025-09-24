@@ -1,0 +1,144 @@
+/* form.css - Airbnb-like form styles with higher specificity to avoid overrides */
+
+/* Box sizing and variables */
+* {
+  box-sizing: border-box;
+}
+:root {
+  --bg: #f7f7f7;
+  --card: #fff;
+  --text: #333;
+  --muted: #666;
+  --accent: #e61e4d;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Page */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  margin: 0;
+  padding: 40px 20px;
+  color: var(--text);
+}
+
+/* Centering wrapper */
+.page-wrap {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Specific form selector to avoid conflicts */
+form.add-listing {
+  background: var(--card);
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: block;
+}
+
+/* Heading */
+form.add-listing h2 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  text-align: center;
+  color: #222;
+}
+
+/* Layout rows (use grid for responsive 2-column) */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* Make some rows full width (textarea, file) */
+.form-row.full {
+  grid-column: 1 / -1;
+}
+
+/* For larger screens, make two columns for the first four inputs */
+@media (min-width: 800px) {
+  .add-listing {
+    padding: 32px;
+  }
+  .form-row:nth-child(1),
+  .form-row:nth-child(2),
+  .form-row:nth-child(3),
+  .form-row:nth-child(4) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Labels */
+form.add-listing label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Inputs & textarea */
+form.add-listing input[type="text"],
+form.add-listing input[type="number"],
+form.add-listing input[type="file"],
+form.add-listing textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition:
+    border 0.15s ease,
+    box-shadow 0.15s ease;
+  background: #fff;
+}
+
+form.add-listing input[type="file"] {
+  padding: 8px 10px;
+  background: #fafafa;
+}
+
+/* Focus */
+form.add-listing input:focus,
+form.add-listing textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(230, 30, 77, 0.08);
+}
+
+/* Button */
+.btn-primary {
+  display: inline-block;
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.14s ease,
+    background 0.12s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: #d80d42;
+}
+
+/* Small helper styling */
+.form-row p.helper {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* temporary debugging helper:
+   uncomment if you can't see changes — will draw a red border around the form */
+/* form.add-listing { border: 2px solid rgba(255,0,0,0.15) !important; } */
