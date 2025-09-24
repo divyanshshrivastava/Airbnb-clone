@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= cardInfo.title %></title>
+    <link rel="stylesheet" href="/showInfo.css" />
+  </head>
+  <body>
+    <% const defaultImg =
+    "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    %>
+
+    <div class="listing-container">
+      <div class="listing-image">
+        <img
+          src="<%= (cardInfo.image && cardInfo.image.url) ? cardInfo.image.url : defaultImg %>"
+          alt="<%= cardInfo.title %>"
+        />
+      </div>
+
+      <div class="listing-details">
+        <h1 class="listing-title"><%= cardInfo.title %></h1>
+        <p class="listing-description"><%= cardInfo.description %></p>
+
+        <div class="listing-meta">
+          <p>
+            <strong>Price:</strong> ₹<%=cardInfo.price.toLocaleString("en-IN")%>
+          </p>
+          <p><strong>Location:</strong> <%= cardInfo.location %></p>
+          <p><strong>Country:</strong> <%= cardInfo.country %></p>
+        </div>
+
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+  </body>
+</html>
