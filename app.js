@@ -27,18 +27,29 @@ app.get("/", (req, res) => {
 });
 
 //*Index Route
-app.get("/listing", async (req, res) => {
+app.get("/listings", async (req, res) => {
   let allListing = await Listing.find({});
   console.log(allListing[1].image);
   res.render("./listings/index.ejs", { allListing });
 });
 
+//*NEW Route
+app.get("/listings/add", (req, res) => {
+  res.render("./listings/add.ejs");
+});
+
+//*CREATE Route
+app.post("/listings", async (req, res) => {
+  await Listing.insertOne(req.body).then(() => console.log("success"));
+  res.redirect("/listings");
+});
+
 //*SHOW Route
-app.get("/listing/:id", async (req, res) => {
+app.get("/listings/:id", async (req, res) => {
   let { id } = req.params;
   console.log(id);
   const cardInfo = await Listing.findById(id);
-  console.log(cardInfo);
+  // console.log(cardInfo);
   res.render("./listings/showInfo.ejs", { cardInfo });
 });
 
