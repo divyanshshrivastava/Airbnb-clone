@@ -1,27 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AirBnB</title>
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <h3>Here lies all the listings</h3>
-    <% const defaultImg = "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"; %>
-    <div class="cards-container">
-      <% for(let listing of allListing){ %>
-        <a id="card-link" href="/listing/<%= listing._id %>">
-          <div class="data-cards">
-            <img id="img" height="100px" src="<%= (listing.image && listing.image.url) ? listing.image.url : defaultImg %>">
-            <p id="title">Title:<%= listing.title %></p>
-            <p id="description">description:<%= listing.description %></p>
-            <p id="price">price:<%= listing.price.toLocaleString("en-IN") %></p>
-            <p id="location">location:<%= listing.location %></p>
-            <p id="country">country:<%= listing.country %></p>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-inner">
+        <a class="brand" href="/">AirBnB</a>
+        <div class="nav-links">
+          <a class="nav-link" href="/">Home</a>
+          <a class="btn btn-primary" href="/listings/add">Create New Listing</a>
         </div>
-        </a>
-    <% } %>
-    </div>
+      </div>
+    </nav>
+
+    <main class="main-wrap">
+      <header class="page-header">
+        <!-- <h3>Here lies all the listings</h3> -->
+      </header>
+
+      <% const defaultImg = "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"; %>
+
+      <div class="cards-container">
+        <% for(let listing of allListing){ %>
+          <a class="card-link" href="/listings/<%= listing._id %>">
+            <article class="data-cards">
+              <div class="img-wrap">
+                <img
+                  class="card-img"
+                  src="<%= (listing.image && listing.image.url) ? listing.image.url : defaultImg %>"
+                  alt="<%= listing.title %>"
+                />
+              </div>
+
+              <div class="card-body">
+                <h4 class="card-title">Title: <%= listing.title %></h4>
+                <p class="card-desc">Description: <%= listing.description %></p>
+
+                <div class="card-meta">
+                  <span class="card-price">₹<%= listing.price.toLocaleString("en-IN") %></span>
+                  <span class="card-location"><%= listing.location %>, <%= listing.country %></span>
+                </div>
+              </div>
+            </article>
+          </a>
+        <% } %>
+      </div>
+    </main>
   </body>
 </html>
