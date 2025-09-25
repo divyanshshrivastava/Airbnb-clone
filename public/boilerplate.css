@@ -1,0 +1,95 @@
+:root {
+  --bg: #f7f7f7;
+  --card: #fff;
+  --text: #333;
+  --muted: #555;
+  --accent: #e61e4d;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Navbar */
+.navbar {
+  background: var(--card);
+  box-shadow: 0 1px 6px rgba(10, 10, 10, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.nav-link:hover {
+  background: #fafafa;
+  color: var(--text);
+}
+
+/* Button styles */
+.btn {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  transition:
+    transform 0.14s ease,
+    background 0.12s ease;
+}
+
+.btn-primary:hover {
+  background: #d80d42;
+  transform: translateY(-2px);
+}
+
+/* Page container */
+.page-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
