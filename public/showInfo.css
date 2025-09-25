@@ -19,50 +19,6 @@ body {
   color: var(--text);
 }
 
-/* Navbar */
-.navbar {
-  background: var(--card);
-  box-shadow: 0 1px 6px rgba(10, 10, 10, 0.06);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.brand {
-  font-weight: 700;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 20px;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.nav-link {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-  padding: 8px 10px;
-  border-radius: 8px;
-}
-
-.nav-link:hover {
-  background: #fafafa;
-  color: var(--text);
-}
-
 /* Button styles */
 .btn {
   text-decoration: none;
