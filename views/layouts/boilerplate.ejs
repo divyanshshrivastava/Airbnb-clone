@@ -5,18 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= typeof title !== "undefined" ? title : "AirBnB" %></title>
     <link rel="stylesheet" href="/navbar.css" />
-    <link rel="stylesheet" href="/footer.css">
-
-    <% if (typeof style !== "undefined") { %>
-      <link rel="stylesheet" href="<%= style %>" />
-    <% } %>
+    <link rel="stylesheet" href="/footer.css" />
   </head>
-  <body>  
+  <body>
     <%- include('../partials/navbar') %>
     <!-- Page Content -->
-    <main class="page-container">
-      <%- body %>
-    </main>
+    <main class="page-container"><%- body %></main>
     <%- include('../partials/footer') %>
   </body>
 </html>
