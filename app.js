@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const Listing = require("./models/listing");
 const path = require("path");
+const methodOverride = require("method-override");
 
 main()
   .then(() => {
@@ -21,6 +22,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   res.send("Root is working");
@@ -60,8 +62,8 @@ app.get("/listings/:id/edit", async (req, res) => {
   res.render("./listings/edit.ejs", { cardInfo });
 });
 
-//*this is a route for testing DB connection
-/* 
+//*UPDATE route
+app/*  //*this is a route for testing DB connection
 app.get("/testListing", async (req, res) => {
   let sample = new Listing({
     title: "My Seafacing Villa",
@@ -75,6 +77,7 @@ app.get("/testListing", async (req, res) => {
 });
 */
 
-app.listen(8080, (req, res) => {
-  console.log("server running on port:8080");
-});
+.app
+  .listen(8080, (req, res) => {
+    console.log("server running on port:8080");
+  });
