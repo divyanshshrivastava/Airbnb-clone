@@ -33,7 +33,10 @@ app.get("/", (req, res) => {
 //*Index Route
 app.get("/listings", async (req, res) => {
   let allListing = await Listing.find({});
-  res.render("./listings/index.ejs", { allListing });
+  res.render("./listings/index.ejs", {
+    allListing,
+    title: "AirBnB - All Listings",
+  });
 });
 
 //*NEW Route
@@ -53,7 +56,7 @@ app.get("/listings/:id", async (req, res) => {
   // console.log(id);
   const cardInfo = await Listing.findById(id);
   // console.log(cardInfo);
-  res.render("./listings/showInfo.ejs", { cardInfo });
+  res.render("./listings/showInfo.ejs", { cardInfo, title: cardInfo.title });
 });
 
 //*EDIT route
