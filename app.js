@@ -63,21 +63,12 @@ app.get("/listings/:id/edit", async (req, res) => {
 });
 
 //*UPDATE route
-app/*  //*this is a route for testing DB connection
-app.get("/testListing", async (req, res) => {
-  let sample = new Listing({
-    title: "My Seafacing Villa",
-    description: "This sea facing will show you the best view in all of Goa",
-    price: 25000,
-    location: "Calangute, Goa",
-    country: "India",
-  }
-  await sample.save();
-  res.send("sample Listing added");
+app.put("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  await Listing.findByIdAndUpdate(id, { ...req.body });
+  res.redirect(`/listings/${id}`);
 });
-*/
 
-.app
-  .listen(8080, (req, res) => {
-    console.log("server running on port:8080");
-  });
+app.listen(8080, (req, res) => {
+  console.log("server running on port:8080");
+});
