@@ -17,6 +17,7 @@
           src="<%= (cardInfo.image && cardInfo.image.url) ? cardInfo.image.url : defaultImg %>"
           alt="<%= cardInfo.title %>"
         />
+        <a href="/listings/<%= cardInfo._id %>/edit" class="edit-btn">✎ Edit</a>
       </div>
 
       <div class="listing-details">
@@ -25,7 +26,8 @@
 
         <div class="listing-meta">
           <p>
-            <strong>Price:</strong> ₹<%=cardInfo.price.toLocaleString("en-IN")%>
+            <strong>Price:</strong> ₹<%= cardInfo.price.toLocaleString("en-IN")
+            %>
           </p>
           <p><strong>Location:</strong> <%= cardInfo.location %></p>
           <p><strong>Country:</strong> <%= cardInfo.country %></p>
