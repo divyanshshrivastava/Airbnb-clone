@@ -29,7 +29,6 @@ app.get("/", (req, res) => {
 //*Index Route
 app.get("/listings", async (req, res) => {
   let allListing = await Listing.find({});
-  console.log(allListing[1].image);
   res.render("./listings/index.ejs", { allListing });
 });
 
@@ -47,10 +46,18 @@ app.post("/listings", async (req, res) => {
 //*SHOW Route
 app.get("/listings/:id", async (req, res) => {
   let { id } = req.params;
-  console.log(id);
+  // console.log(id);
   const cardInfo = await Listing.findById(id);
   // console.log(cardInfo);
   res.render("./listings/showInfo.ejs", { cardInfo });
+});
+
+//*EDIT route
+app.get("/listings/:id/edit", async (req, res) => {
+  let { id } = req.params;
+  const cardInfo = await Listing.findById(id);
+  // console.log(cardInfo);
+  res.render("./listings/edit.ejs", { cardInfo });
 });
 
 //*this is a route for testing DB connection
