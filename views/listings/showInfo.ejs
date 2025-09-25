@@ -43,7 +43,16 @@
           <p><strong>Country:</strong> <%= cardInfo.country %></p>
         </div>
 
-        <button class="book-btn">Book Now</button>
+        <!-- Action buttons -->
+        <div class="action-row">
+          <button class="book-btn">Book Now</button>
+          <form
+            action="/listings/<%= cardInfo._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button type="submit" class="delete-btn">Delete</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
