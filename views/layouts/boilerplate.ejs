@@ -4,26 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= typeof title !== "undefined" ? title : "AirBnB" %></title>
-    <link rel="stylesheet" href="/boilerplate.css" />
+    <link rel="stylesheet" href="/navbar.css" />
+    <link rel="stylesheet" href="/footer.css">
+
     <% if (typeof style !== "undefined") { %>
       <link rel="stylesheet" href="<%= style %>" />
     <% } %>
   </head>
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-      <div class="nav-inner">
-        <a class="brand" href="/listings">AirBnB</a>
-        <div class="nav-links">
-          <a class="nav-link" href="/listings">Home</a>
-          <a class="btn btn-primary" href="/listings/add">Create New Listing</a>
-        </div>
-      </div>
-    </nav>
-
+  <body>  
+    <%- include('../partials/navbar') %>
     <!-- Page Content -->
     <main class="page-container">
       <%- body %>
     </main>
+    <%- include('../partials/footer') %>
   </body>
 </html>
