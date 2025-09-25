@@ -5,6 +5,7 @@ require("dotenv").config();
 const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 main()
   .then(() => {
@@ -23,6 +24,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate);
 
 app.get("/", (req, res) => {
   res.send("Root is working");
@@ -67,6 +69,13 @@ app.put("/listings/:id", async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body });
   res.redirect(`/listings/${id}`);
+});
+
+//*DELETE Route
+app.delete("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  await Listing.findByIdAndDelete(id);
+  res.redirect("/listings");
 });
 
 app.listen(8080, (req, res) => {
