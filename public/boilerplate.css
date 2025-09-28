@@ -1,0 +1,12 @@
+body {
+  cursor: url("/images/icon-cursor.png"), auto;
+}
+
+button,
+.btn,
+.book-btn,
+.delete-btn,
+a,
+.nav-link {
+  cursor: url("/images/plane.png"), pointer;
+}
