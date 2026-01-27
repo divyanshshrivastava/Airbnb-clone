@@ -6,6 +6,8 @@ const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utils/wrapAsync.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 main()
   .then(() => {
@@ -31,13 +33,17 @@ app.get("/", (req, res) => {
 });
 
 //*Index Route
-app.get("/listings", async (req, res) => {
-  let allListing = await Listing.find({});
-  res.render("./listings/index.ejs", {
-    allListing,
-    title: "AirBnB - All Listings",
-  });
-});
+app.get(
+  "/listings",
+  wrapAsync(async (req, res) => {
+    let allListing = await Listing.find({});
+    // console.log(allListing[7]);
+    res.render("./listings/index.ejs", {
+      allListing,
+      title: "AirBnB - All Listings",
+    });
+  }),
+);
 
 //*NEW Route
 app.get("/listings/add", (req, res) => {
@@ -45,40 +51,69 @@ app.get("/listings/add", (req, res) => {
 });
 
 //*CREATE Route
-app.post("/listings", async (req, res) => {
-  await Listing.insertOne(req.body).then(() => console.log("success"));
-  res.redirect("/listings");
-});
+app.post(
+  "/listings",
+  wrapAsync(async (req, res, next) => {
+    if (!req.body) {
+      throw new ExpressError(400, "Invalid Listing Data");
+    }
+    await Listing.create(req.body);
+    res.redirect("/listings");
+  }),
+);
 
 //*SHOW Route
-app.get("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  // console.log(id);
-  const cardInfo = await Listing.findById(id);
-  // console.log(cardInfo);
-  res.render("./listings/showInfo.ejs", { cardInfo, title: cardInfo.title });
-});
+app.get(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    // console.log(id);
+    const cardInfo = await Listing.findById(id);
+    // console.log(cardInfo);
+    res.render("./listings/showInfo.ejs", { cardInfo, title: cardInfo.title });
+  }),
+);
 
 //*EDIT route
-app.get("/listings/:id/edit", async (req, res) => {
-  let { id } = req.params;
-  const cardInfo = await Listing.findById(id);
-  // console.log(cardInfo);
-  res.render("./listings/edit.ejs", { cardInfo });
-});
+app.get(
+  "/listings/:id/edit",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const cardInfo = await Listing.findById(id);
+    // console.log(cardInfo);
+    res.render("./listings/edit.ejs", { cardInfo });
+  }),
+);
 
 //*UPDATE route
-app.put("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body });
-  res.redirect(`/listings/${id}`);
-});
+app.put(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body });
+    res.redirect(`/listings/${id}`);
+  }),
+);
 
 //*DELETE Route
-app.delete("/listings/:id", async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndDelete(id);
-  res.redirect("/listings");
+app.delete(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await Listing.findByIdAndDelete(id);
+    res.redirect("/listings");
+  }),
+);
+
+app.use((req, res, next) => {
+  next(new ExpressError(404, "Page Not Found"));
+});
+
+app.use((err, req, res, next) => {
+  let { statusCode = 500, message = "Something went wrong" } = err;
+  res.status(statusCode).render("error.ejs", { statusCode, message });
+  console.log(err.message);
+  // res.status(statusCode).send(message);
 });
 
 app.listen(8080, (req, res) => {
