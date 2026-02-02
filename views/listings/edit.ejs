@@ -16,7 +16,7 @@
           <input
             type="text"
             id="title"
-            name="title"
+            name="listing[title]"
             value="<%= cardInfo.title %>"
             required
           />
@@ -26,7 +26,7 @@
           <label for="description">Description</label>
           <textarea
             id="description"
-            name="description"
+            name="listing[description]"
             required
             style="resize: none"
           >
@@ -36,7 +36,7 @@
 
         <div class="form-group">
           <label for="image">Image (Upload new if you want to replace)</label>
-          <!-- <input type="file" id="image" name="image" /> -->
+          <!-- <input type="file" id="image" name="listing[image]" /> -->
         </div>
 
         <div class="form-group">
@@ -44,7 +44,7 @@
           <input
             type="number"
             id="price"
-            name="price"
+            name="listing[price]"
             value="<%= cardInfo.price %>"
             required
           />
@@ -55,7 +55,7 @@
           <input
             type="text"
             id="location"
-            name="location"
+            name="listing[location]"
             value="<%= cardInfo.location %>"
             required
           />
@@ -66,7 +66,7 @@
           <input
             type="text"
             id="country"
-            name="country"
+            name="listing[country]"
             value="<%= cardInfo.country %>"
             required
           />

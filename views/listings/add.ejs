@@ -20,29 +20,35 @@
 
         <div class="form-row">
           <label for="title">Title</label>
-          <input id="title" name="title" type="text" required />
+          <input id="title" name="listing[title]" type="text" required />
         </div>
 
         <div class="form-row">
           <label for="price">Price</label>
-          <input id="price" name="price" type="number" min="0" required />
+          <input
+            id="price"
+            name="listing[price]"
+            type="number"
+            min="0"
+            required
+          />
         </div>
 
         <div class="form-row">
           <label for="location">Location</label>
-          <input id="location" name="location" type="text" required />
+          <input id="location" name="listing[location]" type="text" required />
         </div>
 
         <div class="form-row">
           <label for="country">Country</label>
-          <input id="country" name="country" type="text" required />
+          <input id="country" name="listing[country]" type="text" required />
         </div>
 
         <div class="form-row full">
           <label for="description">Description</label>
           <textarea
             id="description"
-            name="description"
+            name="listing[description]"
             rows="5"
             required
             style="resize: none"
@@ -51,7 +57,12 @@
 
         <div class="form-row full">
           <label for="image">Image</label>
-          <input id="image" name="image" type="file" accept="image/*" />
+          <input
+            id="image"
+            name="listing[image]"
+            type="file"
+            accept="image/*"
+          />
         </div>
         <div class="form-action">
           <a href="/listings" class="cancel-btn">Cancel</a>

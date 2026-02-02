@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const { listingSchema } = require("./schema.js");
 
 main()
   .then(() => {
@@ -32,6 +33,15 @@ app.get("/", (req, res) => {
   res.send("Root is working");
 });
 
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  if (error) {
+    throw new ExpressError(400, error);
+  } else {
+    next();
+  }
+};
+
 //*Index Route
 app.get(
   "/listings",
@@ -53,11 +63,9 @@ app.get("/listings/add", (req, res) => {
 //*CREATE Route
 app.post(
   "/listings",
+  validateListing,
   wrapAsync(async (req, res, next) => {
-    if (!req.body) {
-      throw new ExpressError(400, "Invalid Listing Data");
-    }
-    await Listing.create(req.body);
+    await Listing.create(req.body.listing);
     res.redirect("/listings");
   }),
 );
@@ -88,9 +96,10 @@ app.get(
 //*UPDATE route
 app.put(
   "/listings/:id",
+  validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body });
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
   }),
 );
