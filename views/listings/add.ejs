@@ -20,7 +20,13 @@
 
         <div class="form-row">
           <label for="title">Title</label>
-          <input id="title" name="listing[title]" type="text" required />
+          <input
+            id="title"
+            name="listing[title]"
+            type="text"
+            placeholder="Add a Catchy Title"
+            required
+          />
         </div>
 
         <div class="form-row">
@@ -30,18 +36,31 @@
             name="listing[price]"
             type="number"
             min="0"
+            placeholder="1800"
             required
           />
         </div>
 
         <div class="form-row">
           <label for="location">Location</label>
-          <input id="location" name="listing[location]" type="text" required />
+          <input
+            id="location"
+            name="listing[location]"
+            type="text"
+            placeholder="Enter City eg. Gwalior"
+            required
+          />
         </div>
 
         <div class="form-row">
           <label for="country">Country</label>
-          <input id="country" name="listing[country]" type="text" required />
+          <input
+            id="country"
+            name="listing[country]"
+            type="text"
+            placeholder="India"
+            required
+          />
         </div>
 
         <div class="form-row full">
@@ -50,6 +69,7 @@
             id="description"
             name="listing[description]"
             rows="5"
+            placeholder="Add some Description"
             required
             style="resize: none"
           ></textarea>
