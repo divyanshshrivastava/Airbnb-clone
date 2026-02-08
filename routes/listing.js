@@ -4,6 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 const Listing = require("../models/listing.js");
+const { isLoggedIn } = require("../middleware.js");
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
@@ -28,13 +29,15 @@ router.get(
 );
 
 //*NEW Route
-router.get("/add", (req, res) => {
+router.get("/add", isLoggedIn, (req, res) => {
+  // console.log(req.user);
   res.render("./listings/add.ejs");
 });
 
 //*CREATE Route
 router.post(
   "/",
+  isLoggedIn,
   validateListing,
   wrapAsync(async (req, res, next) => {
     await Listing.create(req.body.listing);
@@ -55,6 +58,7 @@ router.get(
       req.flash("error", "Listing does not Exist");
       return res.redirect("/listings");
     }
+    // console.log(req.user);
     res.render("./listings/showInfo.ejs", { cardInfo, title: cardInfo.title });
   }),
 );
@@ -62,6 +66,7 @@ router.get(
 //*EDIT route
 router.get(
   "/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const cardInfo = await Listing.findById(id);
@@ -69,7 +74,6 @@ router.get(
       req.flash("error", "Listing does not Exist");
       return res.redirect("/listings");
     }
-    // console.log(cardInfo);
     res.render("./listings/edit.ejs", { cardInfo });
   }),
 );
@@ -77,6 +81,7 @@ router.get(
 //*UPDATE route
 router.put(
   "/:id",
+  isLoggedIn,
   validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -89,6 +94,7 @@ router.put(
 //*DELETE Route
 router.delete(
   "/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
