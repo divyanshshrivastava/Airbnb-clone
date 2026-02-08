@@ -17,7 +17,9 @@
   <body>
     <%- include('../partials/navbar') %>
     <!-- Page Content -->
-    <main class="page-container"><%- body %></main>
+    <main class="page-container">
+      <%- include('../partials/flash') %> <%- body %>
+    </main>
     <%- include('../partials/footer') %>
 
     <script src="/js/script.js"></script>
