@@ -12,12 +12,15 @@
         src="<%= (cardInfo.image && cardInfo.image.url) ? cardInfo.image.url : defaultImg %>"
         alt="<%= cardInfo.title %>"
       />
-      <a href="/listings/<%= cardInfo._id %>/edit" class="edit-btn">✎ Edit</a>
+      <% if( currentUser && currentUser._id.equals(cardInfo.owner._id)){ %>
+        <a href="/listings/<%= cardInfo._id %>/edit" class="edit-btn">✎ Edit</a>
+      <% } %>
     </div>
 
     <div class="listing-details">
       <h1 class="listing-title"><%= cardInfo.title %></h1>
       <p class="listing-description"><%= cardInfo.description %></p>
+      <p class="listing-owner"><i>Listed By: <%= cardInfo.owner.username %></i></p>
 
       <div class="listing-meta">
         <p>
@@ -34,7 +37,9 @@
           action="/listings/<%= cardInfo._id %>?_method=DELETE"
           method="POST"
         >
+        <% if(currentUser && currentUser._id.equals(cardInfo.owner._id)){ %>
           <button type="submit" class="delete-btn">Delete</button>
+        <% } %>
         </form>
       </div>
       <hr />
@@ -84,7 +89,7 @@
             <div class="col-md-6 mb-3">
               <div class="card h-100">
                 <div class="card-body">
-                  <h5 class="card-title">John Wick</h5>
+                  <h5 class="card-title"><%= currentUser.username %></h5>
                   <p class="card-text"><%= review.comment%></p>
                   <p class="card-text"><strong>Rating:</strong> <%= review.rating%>/5</p>
                   <form method="post" id="reviewForm" action="/listings/<%= cardInfo._id %>/reviews/<%= review._id %>?_method=DELETE">
