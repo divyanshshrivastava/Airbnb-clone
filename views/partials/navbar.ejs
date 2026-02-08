@@ -1,11 +1,37 @@
-<nav class="navbar">
-  <div class="nav-inner">
-    <a class="brand" href="/listings">AirBnB</a>
-    <div class="nav-links">
-      <a class="nav-link" href="/listings">Home</a>
-      <a class="nav-link" href="/listings">Favourites</a>
-      <a class="nav-link" href="/listings">My Profile</a>
-      <a class="btn btn-primary" href="/listings/add">Create New Listing</a>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand title" href="/listings"><strong>AirBnB</strong></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/listings">
+          <strong>Home</strong>
+        </a>
+        <a class="nav-link" href="/listings/add">
+          <strong>Create New Listing</strong>
+        </a>
+      </div>
+      <%if(!currentUser){%>
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="/signup">Sign Up</a>
+          <a class="nav-link" href="/login">Login</a>
+        </div>
+      <%}else{%>
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="/logout">Logout</a>
+        </div>
+      <%}%>
     </div>
   </div>
 </nav>
+
