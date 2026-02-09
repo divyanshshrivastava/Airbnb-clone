@@ -43,7 +43,12 @@ router.get(
     let { id } = req.params;
     // console.log(id);
     const cardInfo = await Listing.findById(id)
-      .populate("reviews")
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+        },
+      })
       .populate("owner");
     // console.log(cardInfo);
     if (!cardInfo) {

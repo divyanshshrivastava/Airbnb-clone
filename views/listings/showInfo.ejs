@@ -44,6 +44,7 @@
       </div>
       <hr />
       <div>
+        <% if(currentUser){ %>
         <h4>Leave a Review</h4>
         <form
           action="/listings/<%= cardInfo._id %>/reviews"
@@ -79,8 +80,8 @@
           </div>
           <button class="btn btn-outline-dark">Submit</button>
         </form>
-
         <hr />
+        <% } %>
 
         <p><b>All Reviews</b></p>
 
@@ -89,12 +90,14 @@
             <div class="col-md-6 mb-3">
               <div class="card h-100">
                 <div class="card-body">
-                  <h5 class="card-title"><%= currentUser.username %></h5>
+                  <h5 class="card-title">@<%= review.author.username %></h5>
                   <p class="card-text"><%= review.comment%></p>
                   <p class="card-text"><strong>Rating:</strong> <%= review.rating%>/5</p>
+                  <% if(currentUser && currentUser._id.equals(review.author._id)){ %>
                   <form method="post" id="reviewForm" action="/listings/<%= cardInfo._id %>/reviews/<%= review._id %>?_method=DELETE">
                     <button id="reviewBtn" class="btn btn-sm btn-dark">Delete</button>
                   </form>
+                  <% } %>
                 </div>
               </div>
             </div>
