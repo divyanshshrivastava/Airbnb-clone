@@ -1,96 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Add New Listing</title>
-    <!-- adjust the path to where your CSS actually is; add ?v=1 to bust cache -->
-    <link rel="stylesheet" href="/css/add.css" />
-  </head>
-  <body>
-    <div class="page-wrap">
-      <form
-        class="add-listing"
-        action="/listings"
-        method="POST"
-        novalidate
-        class="needs-validation"
-      >
-        <h2>Add a New Listing</h2>
 
-        <div class="form-row">
-          <label for="title">Title</label>
-          <input
-            id="title"
-            name="listing[title]"
-            type="text"
-            placeholder="Add a Catchy Title"
-            required
-          />
-        </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Add New Listing</title>
+  <!-- adjust the path to where your CSS actually is; add ?v=1 to bust cache -->
+  <link rel="stylesheet" href="/css/add.css" />
+</head>
 
-        <div class="form-row">
-          <label for="price">Price</label>
-          <input
-            id="price"
-            name="listing[price]"
-            type="number"
-            min="0"
-            placeholder="1800"
-            required
-          />
-        </div>
+<body>
+  <div class="page-wrap">
+    <form class="add-listing" action="/listings" method="POST" novalidate class="needs-validation"
+      enctype="multipart/form-data">
 
-        <div class="form-row">
-          <label for="location">Location</label>
-          <input
-            id="location"
-            name="listing[location]"
-            type="text"
-            placeholder="Enter City eg. Gwalior"
-            required
-          />
-        </div>
+      <h2>Add a New Listing</h2>
 
-        <div class="form-row">
-          <label for="country">Country</label>
-          <input
-            id="country"
-            name="listing[country]"
-            type="text"
-            placeholder="India"
-            required
-          />
-        </div>
+      <div class="form-row">
+        <label for="title">Title</label>
+        <input id="title" name="listing[title]" type="text" placeholder="Add a Catchy Title" required />
+      </div>
 
-        <div class="form-row full">
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            name="listing[description]"
-            rows="5"
-            placeholder="Add some Description"
-            required
-            style="resize: none"
-          ></textarea>
-        </div>
+      <div class="form-row">
+        <label for="price">Price</label>
+        <input id="price" name="listing[price]" type="number" min="0" placeholder="1800" required />
+      </div>
 
-        <div class="form-row full">
-          <label for="image">Image</label>
-          <input
-            id="image"
-            name="listing[image]"
-            type="file"
-            accept="image/*"
-          />
-        </div>
-        <div class="form-action">
-          <a href="/listings" class="cancel-btn">Cancel</a>
-          <button class="btn-primary" type="submit">Add Listing</button>
-        </div>
-      </form>
-    </div>
+      <div class="form-row">
+        <label for="location">Location</label>
+        <input id="location" name="listing[location]" type="text" placeholder="Enter City eg. Gwalior" required />
+      </div>
 
-    <script src="/js/script.js"></script>
-  </body>
+      <div class="form-row">
+        <label for="country">Country</label>
+        <input id="country" name="listing[country]" type="text" placeholder="India" required />
+      </div>
+
+      <div class="form-row">
+        <label for="image">Upload Image</label>
+        <input id="image" name="listing[image]" type="file" required />
+      </div>
+
+      <div class="form-row full">
+        <label for="description">Description</label>
+        <textarea id="description" name="listing[description]" rows="5" placeholder="Add some Description" required
+          style="resize: none"></textarea>
+      </div>
+
+      <div class="form-action">
+        <a href="/listings" class="cancel-btn">Cancel</a>
+        <button class="btn-primary" type="submit">Add Listing</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/script.js"></script>
+</body>
+
 </html>
