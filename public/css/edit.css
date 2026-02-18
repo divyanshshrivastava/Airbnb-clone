@@ -16,7 +16,7 @@ body {
 }
 
 .edit-container {
-  max-width: 600px;
+  max-width: 40rem;
   margin: 30px auto;
   background: var(--card);
   border-radius: 12px;
@@ -41,6 +41,13 @@ body {
   margin-bottom: 6px;
   color: var(--text);
   font-size: 14px;
+}
+
+.current-image {
+  max-width: 200px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
 }
 
 .form-group input,
