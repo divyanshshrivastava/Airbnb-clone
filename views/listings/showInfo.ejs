@@ -1,5 +1,9 @@
 <% layout("/layouts/boilerplate") %>
   <link rel="stylesheet" href="/css/showInfo.css" />
+  <script>
+    const apiKey = "<%= process.env.GEOAPIFY_KEY %>";
+    const coordinates = "<%-JSON.stringify(cardInfo.geometry.coordinates) %>";
+  </script>
 
   <body>
     <% const
@@ -106,6 +110,10 @@
                     <% } %>
                 </div>
           </div>
+        </div>
+        <div class="geoapifyMap">
+          <h2 style="margin-left:1rem">Where you'll be</h2>
+          <div id="map"></div>
         </div>
       </div>
   </body>

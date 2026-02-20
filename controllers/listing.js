@@ -1,4 +1,6 @@
 const Listing = require("../models/listing.js");
+const axios = require("axios");
+require("dotenv").config();
 
 module.exports.index = async (req, res) => {
   let allListing = await Listing.find({});
@@ -15,9 +17,17 @@ module.exports.renderNewForm = (req, res) => {
 module.exports.createListing = async (req, res, next) => {
   let url = req.file.path;
   let filename = req.file.filename;
+
+  let location = req.body.listing.location;
+  const response = await axios.get(
+    `https://api.geoapify.com/v1/geocode/search?text=${location}&apiKey=ab44001be198411fa2f0c864d3d9c8ee`,
+  );
+  req.body.listing.geometry = response.data.features[0].geometry;
+
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
+  newListing.geometry = req.body.listing.geometry;
   await newListing.save();
   req.flash("success", "New Listing Added Successfully");
   res.redirect("/listings");
@@ -37,7 +47,10 @@ module.exports.showListing = async (req, res) => {
     req.flash("error", "Listing does not Exist");
     return res.redirect("/listings");
   }
-  res.render("./listings/showInfo.ejs", { cardInfo, title: cardInfo.title });
+  res.render("./listings/showInfo.ejs", {
+    cardInfo,
+    title: cardInfo.title,
+  });
 };
 
 module.exports.renderEditForm = async (req, res) => {

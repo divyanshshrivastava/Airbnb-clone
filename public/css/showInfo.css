@@ -19,6 +19,15 @@ body {
   color: var(--text);
 }
 
+/* map styles */
+
+#map {
+  height: 360px;
+  width: 100%;
+  border-radius: 16px;
+  margin: 0 auto;
+}
+
 /* Button styles */
 .btn {
   text-decoration: none;
