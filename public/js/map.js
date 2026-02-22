@@ -26,3 +26,5 @@ L.marker(points, { icon: redIcon })
   .addTo(map)
   .bindPopup("Exact Location will be provided after booking")
   .openPopup();
+
+console.log(points);

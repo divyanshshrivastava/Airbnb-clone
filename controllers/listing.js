@@ -49,7 +49,6 @@ module.exports.showListing = async (req, res) => {
   }
   res.render("./listings/showInfo.ejs", {
     cardInfo,
-    title: cardInfo.title,
   });
 };
 
@@ -76,6 +75,13 @@ module.exports.editListing = async (req, res) => {
     listing.image = { url, filename };
     await listing.save();
   }
+  let updatedListing = await Listing.findById(id);
+  let location = updatedListing.location;
+  const response = await axios.get(
+    `https://api.geoapify.com/v1/geocode/search?text=${location}&apiKey=ab44001be198411fa2f0c864d3d9c8ee`,
+  );
+  listing.geometry = response.data.features[0].geometry;
+  await listing.save();
   req.flash("success", "Listing Updated Successfully");
   res.redirect(`/listings/${id}`);
 };
