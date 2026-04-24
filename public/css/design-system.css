@@ -1,0 +1,238 @@
+/* ═══════════════════════════════════════════════════════════════
+   StayFinder Design System
+   Single source of truth for all design tokens
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Google Fonts loaded in boilerplate.ejs ── */
+
+/* ── 1. Color Tokens ── */
+:root {
+  /* Primary palette */
+  --sf-primary:       #FF385C;
+  --sf-primary-dark:  #E31C5F;
+  --sf-primary-light: #FF5A7E;
+  --sf-primary-glow:  rgba(255, 56, 92, 0.25);
+
+  /* Neutral palette */
+  --sf-bg:            #F7F7F7;
+  --sf-surface:       #FFFFFF;
+  --sf-surface-hover: #FAFAFA;
+  --sf-border:        #EBEBEB;
+  --sf-border-dark:   #DDDDDD;
+
+  /* Text */
+  --sf-text:          #222222;
+  --sf-text-secondary:#484848;
+  --sf-text-muted:    #717171;
+  --sf-text-light:    #B0B0B0;
+
+  /* Semantic */
+  --sf-success:       #00A699;
+  --sf-warning:       #FFB400;
+  --sf-danger:        #D93900;
+
+  /* Gradients */
+  --sf-gradient-primary:  linear-gradient(135deg, #FF385C 0%, #E61E6E 100%);
+  --sf-gradient-warm:     linear-gradient(135deg, #FF385C 0%, #FF8A5C 100%);
+  --sf-gradient-hero:     linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --sf-gradient-glass:    linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+
+  /* ── 2. Typography ── */
+  --sf-font:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --sf-font-display:  'Inter', sans-serif;
+
+  --sf-fs-xs:   0.75rem;    /* 12px */
+  --sf-fs-sm:   0.875rem;   /* 14px */
+  --sf-fs-base: 1rem;       /* 16px */
+  --sf-fs-md:   1.125rem;   /* 18px */
+  --sf-fs-lg:   1.25rem;    /* 20px */
+  --sf-fs-xl:   1.5rem;     /* 24px */
+  --sf-fs-2xl:  1.875rem;   /* 30px */
+  --sf-fs-3xl:  2.25rem;    /* 36px */
+  --sf-fs-4xl:  3rem;       /* 48px */
+
+  --sf-fw-normal:   400;
+  --sf-fw-medium:   500;
+  --sf-fw-semibold: 600;
+  --sf-fw-bold:     700;
+  --sf-fw-black:    800;
+
+  --sf-lh-tight:    1.2;
+  --sf-lh-normal:   1.5;
+  --sf-lh-relaxed:  1.65;
+
+  /* ── 3. Spacing ── */
+  --sf-space-xs:  0.25rem;  /* 4px */
+  --sf-space-sm:  0.5rem;   /* 8px */
+  --sf-space-md:  1rem;     /* 16px */
+  --sf-space-lg:  1.5rem;   /* 24px */
+  --sf-space-xl:  2rem;     /* 32px */
+  --sf-space-2xl: 3rem;     /* 48px */
+  --sf-space-3xl: 4rem;     /* 64px */
+
+  /* ── 4. Borders & Radii ── */
+  --sf-radius-sm:   6px;
+  --sf-radius-md:   10px;
+  --sf-radius-lg:   16px;
+  --sf-radius-xl:   24px;
+  --sf-radius-pill: 100px;
+  --sf-radius-round: 50%;
+
+  /* ── 5. Shadows ── */
+  --sf-shadow-xs:   0 1px 2px rgba(0,0,0,0.04);
+  --sf-shadow-sm:   0 2px 8px rgba(0,0,0,0.06);
+  --sf-shadow-md:   0 6px 18px rgba(0,0,0,0.08);
+  --sf-shadow-lg:   0 12px 30px rgba(0,0,0,0.12);
+  --sf-shadow-xl:   0 20px 40px rgba(0,0,0,0.16);
+  --sf-shadow-glow: 0 0 20px var(--sf-primary-glow);
+
+  /* ── 6. Transitions ── */
+  --sf-ease:        cubic-bezier(0.4, 0, 0.2, 1);
+  --sf-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --sf-duration-fast:   150ms;
+  --sf-duration-normal: 250ms;
+  --sf-duration-slow:   400ms;
+
+  /* ── 7. Layout ── */
+  --sf-max-width:   1280px;
+  --sf-navbar-h:    72px;
+}
+
+/* ── Global Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--sf-font);
+  font-size: var(--sf-fs-base);
+  font-weight: var(--sf-fw-normal);
+  line-height: var(--sf-lh-normal);
+  color: var(--sf-text);
+  background: var(--sf-bg);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ── Utility: Container ── */
+.sf-container {
+  width: 100%;
+  max-width: var(--sf-max-width);
+  margin-inline: auto;
+  padding-inline: var(--sf-space-lg);
+}
+
+/* ── Utility: Glass Panel ── */
+.sf-glass {
+  background: var(--sf-gradient-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: var(--sf-shadow-md);
+}
+
+/* ── Utility: Screen Reader Only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+/* ── Keyframe Animations ── */
+@keyframes sf-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes sf-slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sf-slide-down {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sf-scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sf-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes sf-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+@keyframes sf-gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes sf-progress-shrink {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+/* ── Animation Utility Classes ── */
+.sf-animate-fade-in {
+  animation: sf-fade-in var(--sf-duration-normal) var(--sf-ease) both;
+}
+
+.sf-animate-slide-up {
+  animation: sf-slide-up var(--sf-duration-slow) var(--sf-ease) both;
+}
+
+.sf-animate-slide-down {
+  animation: sf-slide-down var(--sf-duration-normal) var(--sf-ease) both;
+}
+
+.sf-animate-scale-in {
+  animation: sf-scale-in var(--sf-duration-normal) var(--sf-ease) both;
+}
+
+/* Scroll-reveal: elements start hidden and animate in when .is-visible is added */
+.sf-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--sf-duration-slow) var(--sf-ease),
+              transform var(--sf-duration-slow) var(--sf-ease);
+}
+.sf-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

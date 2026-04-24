@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════════════
+   StayFinder — Auth Pages (Login & Signup)
+   Uses tokens from design-system.css
+   ═══════════════════════════════════════════════════ */
+
+/* ── Full Page Wrapper ── */
+.auth-wrapper {
+  min-height: calc(100vh - var(--sf-navbar-h) - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sf-space-xl) var(--sf-space-md);
+  position: relative;
+}
+
+.auth-wrapper::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--sf-gradient-hero);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── Card ── */
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--sf-surface);
+  border-radius: var(--sf-radius-xl);
+  box-shadow: var(--sf-shadow-lg);
+  padding: var(--sf-space-2xl);
+  border: 1px solid var(--sf-border);
+}
+
+/* ── Header ── */
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--sf-space-xl);
+}
+
+.auth-logo {
+  color: var(--sf-primary);
+  margin-bottom: var(--sf-space-md);
+}
+
+.auth-title {
+  font-size: var(--sf-fs-xl);
+  font-weight: var(--sf-fw-black);
+  color: var(--sf-text);
+  margin: 0 0 var(--sf-space-xs);
+}
+
+.auth-subtitle {
+  font-size: var(--sf-fs-sm);
+  color: var(--sf-text-muted);
+  margin: 0;
+}
+
+/* ── Form ── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sf-space-md);
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sf-space-xs);
+}
+
+.auth-label {
+  font-size: var(--sf-fs-sm);
+  font-weight: var(--sf-fw-semibold);
+  color: var(--sf-text);
+}
+
+.auth-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--sf-border);
+  border-radius: var(--sf-radius-md);
+  padding: 0 var(--sf-space-md);
+  transition: border-color var(--sf-duration-fast) var(--sf-ease),
+              box-shadow var(--sf-duration-fast) var(--sf-ease);
+  background: var(--sf-surface);
+}
+
+.auth-input-wrap:focus-within {
+  border-color: var(--sf-primary);
+  box-shadow: 0 0 0 4px var(--sf-primary-glow);
+}
+
+.auth-input-icon {
+  color: var(--sf-text-light);
+  font-size: var(--sf-fs-sm);
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+  transition: color var(--sf-duration-fast) var(--sf-ease);
+}
+
+.auth-input-wrap:focus-within .auth-input-icon {
+  color: var(--sf-primary);
+}
+
+.auth-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: var(--sf-space-md) var(--sf-space-sm);
+  font-family: var(--sf-font);
+  font-size: var(--sf-fs-sm);
+  color: var(--sf-text);
+  flex: 1;
+  min-width: 0;
+}
+
+.auth-input::placeholder {
+  color: var(--sf-text-light);
+}
+
+/* ── Submit Button ── */
+.auth-submit {
+  width: 100%;
+  padding: var(--sf-space-md);
+  background: var(--sf-gradient-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--sf-radius-md);
+  font-size: var(--sf-fs-base);
+  font-weight: var(--sf-fw-bold);
+  font-family: var(--sf-font);
+  cursor: pointer;
+  margin-top: var(--sf-space-sm);
+  transition: transform var(--sf-duration-fast) var(--sf-ease),
+              box-shadow var(--sf-duration-fast) var(--sf-ease);
+}
+
+.auth-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255,56,92,0.35);
+}
+
+.auth-submit:active {
+  transform: translateY(0);
+}
+
+/* ── Footer Text ── */
+.auth-footer-text {
+  text-align: center;
+  font-size: var(--sf-fs-sm);
+  color: var(--sf-text-muted);
+  margin-top: var(--sf-space-lg);
+}
+
+.auth-link {
+  color: var(--sf-primary);
+  font-weight: var(--sf-fw-semibold);
+  transition: color var(--sf-duration-fast) var(--sf-ease);
+}
+
+.auth-link:hover {
+  color: var(--sf-primary-dark);
+  text-decoration: underline;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: var(--sf-space-xl) var(--sf-space-lg);
+    border-radius: var(--sf-radius-lg);
+  }
+}

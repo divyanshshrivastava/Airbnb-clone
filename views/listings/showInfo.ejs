@@ -1,119 +1,159 @@
 <% layout("/layouts/boilerplate") %>
-  <link rel="stylesheet" href="/css/showInfo.css" />
-  <script>
-    const apiKey = "<%= process.env.GEOAPIFY_KEY %>";
-    const coordinates = "<%-JSON.stringify(cardInfo.geometry.coordinates) %>";
-  </script>
+<link rel="stylesheet" href="/css/showInfo.css" />
+<script>
+  const apiKey = "<%= process.env.GEOAPIFY_KEY %>";
+  const coordinates = "<%- JSON.stringify(cardInfo.geometry.coordinates) %>";
+</script>
 
-  <body>
-    <% const
-      defaultImg="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      ; %>
+<% const
+  defaultImg="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  ; %>
 
-      <div class="listing-container">
-        <div class="listing-image">
-          <img src="<%= (cardInfo.image && cardInfo.image.url) ? cardInfo.image.url : defaultImg %>"
-            alt="<%= cardInfo.title %>" />
-          <% if( currentUser && currentUser._id.equals(cardInfo.owner._id)){ %>
-            <a href="/listings/<%= cardInfo._id %>/edit" class="edit-btn">✎ Edit</a>
-            <% } %>
+<!-- Breadcrumb -->
+<nav class="sf-breadcrumb" aria-label="Breadcrumb">
+  <a href="/listings"><i class="fa-solid fa-house"></i> Home</a>
+  <span class="sf-breadcrumb-sep">/</span>
+  <span class="sf-breadcrumb-current"><%= cardInfo.title %></span>
+</nav>
+
+<div class="listing-wrapper sf-animate-fade-in">
+  <!-- Hero Image Section -->
+  <div class="listing-hero">
+    <div class="listing-image">
+      <img src="<%= (cardInfo.image && cardInfo.image.url) ? cardInfo.image.url : defaultImg %>"
+        alt="<%= cardInfo.title %>" />
+      <div class="listing-image-actions">
+        <button class="share-btn" aria-label="Share listing">
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+        </button>
+        <button class="save-btn" aria-label="Save listing">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+      </div>
+      <% if( currentUser && currentUser._id.equals(cardInfo.owner._id)){ %>
+        <a href="/listings/<%= cardInfo._id %>/edit" class="edit-btn">
+          <i class="fa-solid fa-pen"></i> Edit
+        </a>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Content Grid -->
+  <div class="listing-content">
+    <!-- Left: Details -->
+    <div class="listing-details">
+      <h1 class="listing-title"><%= cardInfo.title %></h1>
+
+      <div class="listing-location-badge">
+        <i class="fa-solid fa-location-dot"></i>
+        <span><%= cardInfo.location %>, <%= cardInfo.country %></span>
+      </div>
+
+      <p class="listing-description"><%= cardInfo.description %></p>
+
+      <div class="listing-host">
+        <div class="host-avatar">
+          <%= cardInfo.owner.username.charAt(0).toUpperCase() %>
         </div>
-
-        <div class="listing-details">
-          <h1 class="listing-title">
-            <%= cardInfo.title %>
-          </h1>
-          <p class="listing-description">
-            <%= cardInfo.description %>
-          </p>
-          <p class="listing-owner"><i>Listed By: <%= cardInfo.owner.username %></i></p>
-
-          <div class="listing-meta">
-            <p>
-              <strong>Price:</strong> ₹<%= cardInfo.price.toLocaleString("en-IN") %>
-            </p>
-            <p><strong>Location:</strong>
-              <%= cardInfo.location %>
-            </p>
-            <p><strong>Country:</strong>
-              <%= cardInfo.country %>
-            </p>
-          </div>
-
-          <!-- Action buttons -->
-          <div class="action-row">
-            <button class="book-btn">Book Now</button>
-            <form action="/listings/<%= cardInfo._id %>?_method=DELETE" method="POST">
-              <% if(currentUser && currentUser._id.equals(cardInfo.owner._id)){ %>
-                <button type="submit" class="delete-btn">Delete</button>
-                <% } %>
-            </form>
-          </div>
-          <hr />
-          <div>
-            <% if(currentUser){ %>
-              <h4>Leave a Review</h4>
-              <form action="/listings/<%= cardInfo._id %>/reviews" method="POST" novalidate class="needs-validation">
-                <!-- <div class="mb-3 mt-3">
-                  <label for="rating" class="form-label">Rating</label>
-                  <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range" />
-                </div> -->
-                <fieldset class="starability-slot">
-                  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
-                    aria-label="No rating." />
-                  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                  <label for="first-rate1" title="Terrible">1 star</label>
-                  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                  <label for="first-rate2" title="Not good">2 stars</label>
-                  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                  <label for="first-rate3" title="Average">3 stars</label>
-                  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-                  <label for="first-rate4" title="Very good">4 stars</label>
-                  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                  <label for="first-rate5" title="Amazing">5 stars</label>
-                </fieldset>
-                <div class="mb-3">
-                  <label for="comment" class="form-label">Comments</label>
-                  <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
-                    autocomplete="off" required></textarea>
-                  <div class="invalid-feedback">
-                    Please add some comments for review
-                  </div>
-                </div>
-                <button class="btn btn-outline-dark">Submit</button>
-              </form>
-              <hr />
-              <% } %>
-
-                <p><b>All Reviews</b></p>
-
-                <div class="row">
-                  <% for(let review of cardInfo.reviews) { %>
-                    <div class="col-md-6 mb-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <h5 class="card-title">@<%= review.author.username %>
-                          </h5>
-                          <p class="starability-result card-text" data-rating="<%= review.rating%>"></p>
-                          <p class="card-text">
-                            <%= review.comment%>
-                          </p>
-                          <% if(currentUser && currentUser._id.equals(review.author._id)){ %>
-                            <form method="post" id="reviewForm"
-                              action="/listings/<%= cardInfo._id %>/reviews/<%= review._id %>?_method=DELETE">
-                              <button id="reviewBtn" class="btn btn-sm btn-dark">Delete</button>
-                            </form>
-                            <% } %>
-                        </div>
-                      </div>
-                    </div>
-                    <% } %>
-                </div>
-          </div>
-        </div>
-        <div class="geoapifyMap">
-          <h2 style="margin-left:1rem">Where you'll be</h2>
-          <div id="map"></div>
+        <div class="host-info">
+          <p class="host-label">Hosted by</p>
+          <p class="host-name"><%= cardInfo.owner.username %></p>
         </div>
       </div>
-  </body>
+
+      <hr class="sf-divider" />
+
+      <!-- Reviews Section -->
+      <div class="reviews-section">
+        <% if(currentUser){ %>
+          <h3 class="section-heading">Leave a Review</h3>
+          <form action="/listings/<%= cardInfo._id %>/reviews" method="POST" novalidate class="needs-validation review-form">
+            <fieldset class="starability-slot">
+              <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
+                aria-label="No rating." />
+              <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+              <label for="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+            <div class="review-input-group">
+              <textarea name="review[comment]" id="comment" rows="4" class="sf-textarea"
+                placeholder="Share your experience…" autocomplete="off" required></textarea>
+              <div class="invalid-feedback">Please add some comments for review</div>
+            </div>
+            <button type="submit" class="sf-btn sf-btn-primary">Submit Review</button>
+          </form>
+          <hr class="sf-divider" />
+        <% } %>
+
+        <h3 class="section-heading">
+          All Reviews
+          <span class="review-count">(<%= cardInfo.reviews.length %>)</span>
+        </h3>
+
+        <div class="reviews-grid">
+          <% for(let review of cardInfo.reviews) { %>
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">
+                  <%= review.author.username.charAt(0).toUpperCase() %>
+                </div>
+                <div class="review-meta">
+                  <p class="review-author">@<%= review.author.username %></p>
+                  <p class="starability-result" data-rating="<%= review.rating %>"></p>
+                </div>
+              </div>
+              <p class="review-text"><%= review.comment %></p>
+              <% if(currentUser && currentUser._id.equals(review.author._id)){ %>
+                <form method="post"
+                  action="/listings/<%= cardInfo._id %>/reviews/<%= review._id %>?_method=DELETE"
+                  class="review-delete-form">
+                  <button type="submit" class="sf-btn-icon-danger" title="Delete review">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </form>
+              <% } %>
+            </div>
+          <% } %>
+          <% if(cardInfo.reviews.length === 0) { %>
+            <p class="no-reviews">No reviews yet. Be the first to share your experience!</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Booking Sidebar -->
+    <aside class="listing-sidebar">
+      <div class="booking-card sf-glass">
+        <div class="booking-price">
+          <span class="price-amount">₹<%= cardInfo.price.toLocaleString("en-IN") %></span>
+          <span class="price-unit">/ night</span>
+        </div>
+        <button class="sf-btn sf-btn-gradient book-btn">
+          <i class="fa-solid fa-bolt"></i> Book Now
+        </button>
+        <p class="booking-note">You won't be charged yet</p>
+
+        <% if(currentUser && currentUser._id.equals(cardInfo.owner._id)){ %>
+          <form action="/listings/<%= cardInfo._id %>?_method=DELETE" method="POST" class="delete-form">
+            <button type="submit" class="sf-btn sf-btn-danger">
+              <i class="fa-solid fa-trash-can"></i> Delete Listing
+            </button>
+          </form>
+        <% } %>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Map Section -->
+  <section class="map-section sf-reveal">
+    <h2 class="section-heading"><i class="fa-solid fa-map-location-dot"></i> Where you'll be</h2>
+    <div id="map"></div>
+  </section>
+</div>

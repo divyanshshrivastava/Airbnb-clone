@@ -1,12 +1,97 @@
 <% if(success && success.length){ %>
-  <div class="alert alert-success alert-dismissible fade show offset-2 col-8" role="alert">
-    <%= success %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <div class="sf-flash sf-flash-success sf-animate-slide-down" role="alert" id="flash-success">
+    <div class="sf-flash-content">
+      <i class="fa-solid fa-circle-check sf-flash-icon"></i>
+      <span><%= success %></span>
+    </div>
+    <button type="button" class="sf-flash-close" data-bs-dismiss="alert" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="sf-flash-progress"></div>
   </div>
 <% } %>
 <% if(error && error.length){ %>
-  <div class="alert alert-danger alert-dismissible fade show offset-2 col-8" role="alert">
-    <%= error %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <div class="sf-flash sf-flash-error sf-animate-slide-down" role="alert" id="flash-error">
+    <div class="sf-flash-content">
+      <i class="fa-solid fa-circle-exclamation sf-flash-icon"></i>
+      <span><%= error %></span>
+    </div>
+    <button type="button" class="sf-flash-close" data-bs-dismiss="alert" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="sf-flash-progress"></div>
   </div>
 <% } %>
+
+<style>
+  .sf-flash {
+    max-width: 580px;
+    margin: var(--sf-space-md) auto;
+    padding: var(--sf-space-md) var(--sf-space-lg);
+    border-radius: var(--sf-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sf-space-md);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--sf-shadow-md);
+  }
+
+  .sf-flash-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+  }
+
+  .sf-flash-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+  }
+
+  .sf-flash-content {
+    display: flex;
+    align-items: center;
+    gap: var(--sf-space-sm);
+    font-size: var(--sf-fs-sm);
+    font-weight: var(--sf-fw-medium);
+  }
+
+  .sf-flash-icon {
+    font-size: var(--sf-fs-lg);
+    flex-shrink: 0;
+  }
+
+  .sf-flash-success .sf-flash-icon { color: #22c55e; }
+  .sf-flash-error .sf-flash-icon { color: #ef4444; }
+
+  .sf-flash-close {
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.5;
+    font-size: var(--sf-fs-base);
+    cursor: pointer;
+    padding: var(--sf-space-xs);
+    transition: opacity var(--sf-duration-fast) var(--sf-ease);
+    flex-shrink: 0;
+  }
+
+  .sf-flash-close:hover {
+    opacity: 1;
+  }
+
+  .sf-flash-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    transform-origin: left;
+    animation: sf-progress-shrink 5s linear forwards;
+  }
+
+  .sf-flash-success .sf-flash-progress { background: #22c55e; }
+  .sf-flash-error .sf-flash-progress { background: #ef4444; }
+</style>

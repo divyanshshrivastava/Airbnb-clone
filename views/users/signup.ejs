@@ -1,46 +1,69 @@
 <% layout("/layouts/boilerplate") %>
-<div class="container mt-3">
-  <div class="row">
-    <h1 class="col-6 offset-3">SignUp on AirBnB</h1>
-    <div class="col-6 offset-3">
-      <form action="/signup" method="POST" class="needs-validation" novalidate>
-        <div class="mb-3">
-          <label for="username" class="form-label"> Username </label>
+<link rel="stylesheet" href="/css/auth.css" />
+
+<div class="auth-wrapper">
+  <div class="auth-card sf-animate-scale-in">
+    <div class="auth-header">
+      <svg class="auth-logo" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-subtitle">Join StayFinder and start exploring</p>
+    </div>
+
+    <form action="/signup" method="POST" class="needs-validation auth-form" novalidate>
+      <div class="auth-field">
+        <label for="username" class="auth-label">Username</label>
+        <div class="auth-input-wrap">
+          <i class="fa-solid fa-user auth-input-icon"></i>
           <input
             type="text"
             name="username"
             id="username"
-            placeholder="Enter a username"
-            class="form-control"
+            placeholder="Choose a username"
+            class="auth-input"
             autocomplete="off"
             required
           />
-          <div class="valid-feedback">Username Available!</div>
         </div>
-        <div class="mb-3">
-          <label for="email" class="form-label"> Email </label>
+      </div>
+
+      <div class="auth-field">
+        <label for="email" class="auth-label">Email</label>
+        <div class="auth-input-wrap">
+          <i class="fa-solid fa-envelope auth-input-icon"></i>
           <input
             type="email"
             name="email"
             id="email"
             placeholder="Enter your email"
-            class="form-control"
+            class="auth-input"
             required
           />
         </div>
-        <div class="mb-3">
-          <label for="password" class="form-label"> Password </label>
+      </div>
+
+      <div class="auth-field">
+        <label for="password" class="auth-label">Password</label>
+        <div class="auth-input-wrap">
+          <i class="fa-solid fa-lock auth-input-icon"></i>
           <input
             type="password"
             name="password"
             id="password"
-            placeholder="Enter a password"
-            class="form-control"
+            placeholder="Create a password"
+            class="auth-input"
             required
           />
         </div>
-        <button class="btn btn-success">SignUp</button>
-      </form>
-    </div>
+      </div>
+
+      <button class="auth-submit" type="submit">Sign Up</button>
+    </form>
+
+    <p class="auth-footer-text">
+      Already have an account? <a href="/login" class="auth-link">Log in</a>
+    </p>
   </div>
 </div>

@@ -1,62 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout("/layouts/boilerplate") %>
+<link rel="stylesheet" href="/css/edit.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit your Listing</title>
-  <link rel="stylesheet" href="/css/edit.css" />
-</head>
+<div class="edit-container sf-animate-fade-in">
+  <h1><i class="fa-solid fa-pen-to-square"></i> Edit Your Listing</h1>
+  <!-- Using method override (_method=PUT) -->
+  <form action="/listings/<%= cardInfo._id %>?_method=PUT" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="listing[title]" value="<%= cardInfo.title %>" required />
+    </div>
 
-<body>
-  <div class="edit-container">
-    <h1>Edit Your Listing</h1>
-    <!-- Using method override (_method=PUT) -->
-    <form action="/listings/<%= cardInfo._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" id="title" name="listing[title]" value="<%= cardInfo.title %>" required />
-      </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="listing[description]" required
+        style="resize: none"><%= cardInfo.description %></textarea>
+    </div>
 
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" name="listing[description]" required
-          style="resize: none"><%= cardInfo.description %></textarea>
-      </div>
+    <div class="form-group">
+      <label>Current Image</label>
+      <img src="<%= originalImageUrl %>" alt="Current Image" class="current-image" />
+    </div>
 
-      <div class="form-group">
-        <label for="">Current Image</label>
-        <img src="<%= originalImageUrl %>" alt="Current Image" class="current-image" />
-      </div>
-
-      <div class="form-group">
-        <label for="image">Upload new Image</label>
+    <div class="form-group">
+      <label for="image">Upload new Image</label>
+      <div class="file-upload-area">
         <input type="file" id="image" name="listing[image]" />
+        <div class="file-upload-hint">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span>Choose a new file</span>
+        </div>
       </div>
+      <img id="image-preview" class="image-preview" alt="Preview" style="display:none" />
+    </div>
 
-      <div class="form-group">
-        <label for="price">Price (₹)</label>
-        <input type="number" id="price" name="listing[price]" value="<%= cardInfo.price %>" required />
-      </div>
+    <div class="form-group">
+      <label for="price">Price (₹ per night)</label>
+      <input type="number" id="price" name="listing[price]" value="<%= cardInfo.price %>" required />
+    </div>
 
-      <div class="form-group">
-        <label for="location">Location</label>
-        <input type="text" id="location" name="listing[location]" value="<%= cardInfo.location %>" required />
-      </div>
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input type="text" id="location" name="listing[location]" value="<%= cardInfo.location %>" required />
+    </div>
 
-      <div class="form-group">
-        <label for="country">Country</label>
-        <input type="text" id="country" name="listing[country]" value="<%= cardInfo.country %>" required />
-      </div>
+    <div class="form-group">
+      <label for="country">Country</label>
+      <input type="text" id="country" name="listing[country]" value="<%= cardInfo.country %>" required />
+    </div>
 
-      <div class="form-actions">
-        <a href="/listings/<%= cardInfo._id %>" class="cancel-btn">Cancel</a>
-        <button type="submit" class="save-btn">Save Changes</button>
-      </div>
-    </form>
-  </div>
-
-  <script src="/js/script.js"></script>
-</body>
-
-</html>
+    <div class="form-actions">
+      <a href="/listings/<%= cardInfo._id %>" class="cancel-btn">Cancel</a>
+      <button type="submit" class="save-btn">
+        <i class="fa-solid fa-check"></i> Save Changes
+      </button>
+    </div>
+  </form>
+</div>

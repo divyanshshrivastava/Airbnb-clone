@@ -1,113 +1,142 @@
 <% layout("/layouts/boilerplate") %>
 
-  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/index.css">
 
-  <body>
+<% const
+  defaultImg="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  ; %>
 
-    <main class="main-wrap">
-      <header class="page-header">
-        <!-- <h3>Here lies all the listings</h3> -->
-      </header>
+<!-- Hero Banner -->
+<section class="hero-banner">
+  <div class="hero-content">
+    <h1 class="hero-title">Find your next <span class="hero-accent">perfect stay</span></h1>
+    <p class="hero-subtitle">Discover unique homes, experiences, and places around the world</p>
+  </div>
+</section>
 
-      <% const
-        defaultImg="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        ; %>
-        <div id="filters">
-          <div class="inner-filter">
-            <div class="filter">
-              <div><i class="fa-solid fa-fire"></i></div>
-              <p>Trending</p>
-            </div>
-            <div class="filter">
-              <div><i class="fa-solid fa-bed"></i></div>
-              <p>Rooms</p>
-            </div>
-            <div class="filter">
-              <div><i class="fa-solid fa-mountain-city"></i></div>
-              <p>Iconic cities</p>
-            </div>
-            <div class="filter">
-              <div><i class="fa-solid fa-mountain"></i></div>
-              <p>Mountains</p>
-            </div>
-            <div class="filter">
-              <div><i class="fa-brands fa-fort-awesome"></i></div>
-              <p>Castles</p>
-            </div>
-            <div class="filter">
-              <div><i class="fa-solid fa-person-swimming"></i></div>
-              <p>Amazing Pools</p>
-            </div>
-            <div class="filter">
-              <div><i class="fa-solid fa-campground"></i></div>
-              <p>Camping</p>
-            </div>
-            <div class="filter">
-              <div><i class="fa-solid fa-cow"></i></div>
-              <p>Farms</p>
-            </div>
-            <div class="filter">
-              <div><i class="fa-solid fa-snowflake"></i></div>
-              <p>Arctic</p>
-            </div>
+<!-- Filters Bar -->
+<div id="filters">
+  <div class="inner-filter" id="filter-scroll">
+    <div class="filter" data-category="trending">
+      <div class="filter-icon"><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </div>
+    <div class="filter" data-category="rooms">
+      <div class="filter-icon"><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+    </div>
+    <div class="filter" data-category="cities">
+      <div class="filter-icon"><i class="fa-solid fa-mountain-city"></i></div>
+      <p>Iconic cities</p>
+    </div>
+    <div class="filter" data-category="mountains">
+      <div class="filter-icon"><i class="fa-solid fa-mountain"></i></div>
+      <p>Mountains</p>
+    </div>
+    <div class="filter" data-category="castles">
+      <div class="filter-icon"><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Castles</p>
+    </div>
+    <div class="filter" data-category="pools">
+      <div class="filter-icon"><i class="fa-solid fa-person-swimming"></i></div>
+      <p>Amazing Pools</p>
+    </div>
+    <div class="filter" data-category="camping">
+      <div class="filter-icon"><i class="fa-solid fa-campground"></i></div>
+      <p>Camping</p>
+    </div>
+    <div class="filter" data-category="farms">
+      <div class="filter-icon"><i class="fa-solid fa-cow"></i></div>
+      <p>Farms</p>
+    </div>
+    <div class="filter" data-category="arctic">
+      <div class="filter-icon"><i class="fa-solid fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </div>
+  </div>
 
-          </div>
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">Show with Taxes</label>
+    </div>
+  </div>
+</div>
 
-          <div class="tax-toggle">
-            <div class="form-check-reverse form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-              <label class="form-check-label" for="flexSwitchCheckDefault">Display Total after Taxes</label>
-            </div>
+<!-- Listings Grid -->
+<div class="cards-container">
+  <% for(let [i, listing] of allListing.entries()){ %>
+    <a class="card-link sf-reveal" href="/listings/<%= listing._id %>" style="animation-delay: <%= Math.min(i * 60, 600) %>ms">
+      <article class="data-cards">
+        <div class="img-wrap">
+          <img class="card-img"
+            src="<%= (listing.image && listing.image.url) ? listing.image.url : defaultImg %>"
+            alt="<%= listing.title %>"
+            loading="lazy" />
+          <div class="card-img-overlay">
+            <button class="wishlist-btn" aria-label="Save to wishlist">
+              <i class="fa-regular fa-heart"></i>
+            </button>
           </div>
         </div>
-        <div class="cards-container">
-          <% for(let listing of allListing){ %>
-            <a class="card-link" href="/listings/<%= listing._id %>">
-              <article class="data-cards">
-                <div class="img-wrap">
-                  <img class="card-img"
-                    src="<%= (listing.image && listing.image.url) ? listing.image.url : defaultImg %>"
-                    alt="<%= listing.title %>" />
-                </div>
 
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <%= listing.title %>
-                  </h4>
-                  <p class="card-desc">
-                    <%= listing.description %>
-                  </p>
+        <div class="card-body">
+          <h4 class="card-title">
+            <%= listing.title %>
+          </h4>
+          <p class="card-desc">
+            <%= listing.description %>
+          </p>
 
-                  <div class="card-meta">
-                    <span class="card-price">
-                      ₹<%= listing.price.toLocaleString("en-IN") %>
-                        <i class="tax-info">+18% GST</i>
-                    </span>
+          <div class="card-meta">
+            <span class="card-price">
+              ₹<%= listing.price.toLocaleString("en-IN") %>
+              <span class="per-night">/ night</span>
+              <i class="tax-info">+18% GST</i>
+            </span>
 
-                    <span class="card-location">
-                      <%= listing.location %>, <%= listing.country %>
-                    </span>
-                  </div>
-                </div>
-              </article>
-            </a>
-            <% } %>
+            <span class="card-location">
+              <i class="fa-solid fa-location-dot"></i>
+              <%= listing.location %>, <%= listing.country %>
+            </span>
+          </div>
         </div>
-    </main>
-  </body>
+      </article>
+    </a>
+  <% } %>
+</div>
 
-
-  <script>
-    let taxSwitch = document.querySelector("#flexSwitchCheckDefault");
-
-    taxSwitch.addEventListener("click", () => {
-      let taxInfo = document.querySelectorAll(".tax-info");
-      for (info of taxInfo) {
-        if (info.style.display != "inline") {
-          info.style.display = "inline";
-        } else {
-          info.style.display = "none";
-        }
+<script>
+  // Tax toggle
+  let taxSwitch = document.querySelector("#flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.querySelectorAll(".tax-info");
+    for (info of taxInfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
       }
-    })
-  </script>
+    }
+  });
+
+  // Filter active state
+  document.querySelectorAll('.filter').forEach(f => {
+    f.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach(el => el.classList.remove('active'));
+      f.classList.add('active');
+    });
+  });
+
+  // Wishlist heart toggle (decorative)
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const icon = btn.querySelector('i');
+      icon.classList.toggle('fa-regular');
+      icon.classList.toggle('fa-solid');
+      icon.classList.toggle('liked');
+    });
+  });
+</script>

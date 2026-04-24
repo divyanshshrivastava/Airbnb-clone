@@ -1,36 +1,60 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand title" href="/listings"><strong>StayFinder</strong></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/listings">
-          <strong>Home</strong>
-        </a>
-      </div>
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2 col-md-8" type="search" placeholder="Search Destinations" />
-          <button class="btn btn-outline-danger" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
+<nav class="sf-navbar" id="main-navbar">
+  <div class="sf-navbar-inner">
+    <!-- Logo -->
+    <a class="sf-brand" href="/listings">
+      <svg class="sf-brand-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span class="sf-brand-text">StayFinder</span>
+    </a>
 
-      </div>
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/add" style="color:#000; font-weight: 400;">
-          Add New Stay
-        </a>
-        <%if(!currentUser){%>
-          <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-          <a class="nav-link" href="/login"><b>Login</b></a>
+    <!-- Center Search -->
+    <form class="sf-search" role="search" id="navbar-search">
+      <i class="fa-solid fa-magnifying-glass sf-search-icon"></i>
+      <input class="sf-search-input" type="search" placeholder="Search destinations…" aria-label="Search destinations" />
+      <button class="sf-search-btn" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
 
-          <%}else{%>
+    <!-- Right Nav -->
+    <div class="sf-nav-actions">
+      <a class="sf-nav-link sf-nav-host" href="/listings/add">
+        <i class="fa-solid fa-plus"></i>
+        <span>Add Stay</span>
+      </a>
 
-            <a class="nav-link" href="/logout"><b>Logout</b></a>
-            <%}%>
-      </div>
+      <% if(!currentUser){ %>
+        <a class="sf-nav-link" href="/signup">Sign Up</a>
+        <a class="sf-nav-btn" href="/login">Log In</a>
+      <% } else { %>
+        <div class="sf-user-menu">
+          <div class="sf-avatar" title="<%= currentUser.username %>">
+            <%= currentUser.username.charAt(0).toUpperCase() %>
+          </div>
+          <a class="sf-nav-link sf-logout-link" href="/logout">Log Out</a>
+        </div>
+      <% } %>
     </div>
+
+    <!-- Mobile Hamburger -->
+    <button class="sf-hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="sf-mobile-drawer" id="mobile-drawer">
+    <a href="/listings" class="sf-drawer-link">Home</a>
+    <a href="/listings/add" class="sf-drawer-link">Add Stay</a>
+    <% if(!currentUser){ %>
+      <a href="/signup" class="sf-drawer-link">Sign Up</a>
+      <a href="/login" class="sf-drawer-link sf-drawer-btn">Log In</a>
+    <% } else { %>
+      <a href="/logout" class="sf-drawer-link">Log Out</a>
+    <% } %>
   </div>
 </nav>
