@@ -13,7 +13,7 @@ module.exports.createUser = async (req, res) => {
       if (err) {
         return next(err);
       }
-      req.flash("success", "Welcome to AirBnB");
+      req.flash("success", "Welcome to StayFinder");
       res.redirect("/listings");
     });
   } catch (e) {
