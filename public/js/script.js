@@ -1,13 +1,58 @@
 (() => {
   "use strict";
 
-  /* ── 1. Bootstrap Form Validation ── */
+  /* ── 1. Real-Time Inline Form Validation ── */
   const forms = document.querySelectorAll(".needs-validation");
+
+  function showFieldError(input) {
+    const field = input.closest(".auth-field");
+    if (!field) return;
+    const errorSpan = field.querySelector(".auth-field-error");
+    const wrap = field.querySelector(".auth-input-wrap");
+    if (errorSpan) errorSpan.classList.add("visible");
+    if (wrap) wrap.classList.add("has-error");
+  }
+
+  function hideFieldError(input) {
+    const field = input.closest(".auth-field");
+    if (!field) return;
+    const errorSpan = field.querySelector(".auth-field-error");
+    const wrap = field.querySelector(".auth-input-wrap");
+    if (errorSpan) errorSpan.classList.remove("visible");
+    if (wrap) wrap.classList.remove("has-error");
+  }
+
   Array.from(forms).forEach((form) => {
+    const inputs = form.querySelectorAll(".auth-input[required]");
+
+    // Show error when user leaves an empty / invalid field
+    inputs.forEach((input) => {
+      input.addEventListener("blur", () => {
+        if (!input.value.trim() || !input.checkValidity()) {
+          showFieldError(input);
+        }
+      });
+
+      // Clear error as soon as the user starts typing valid content
+      input.addEventListener("input", () => {
+        if (input.value.trim() && input.checkValidity()) {
+          hideFieldError(input);
+        }
+      });
+    });
+
+    // On submit – show all remaining errors at once
     form.addEventListener(
       "submit",
       (event) => {
-        if (!form.checkValidity()) {
+        let hasError = false;
+        inputs.forEach((input) => {
+          if (!input.value.trim() || !input.checkValidity()) {
+            showFieldError(input);
+            hasError = true;
+          }
+        });
+        if (hasError) {
           event.preventDefault();
           event.stopPropagation();
         }

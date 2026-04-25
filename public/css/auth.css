@@ -162,6 +162,38 @@
   transition: color var(--sf-duration-fast) var(--sf-ease);
 }
 
+/* ── Field Validation Error ── */
+.auth-field-error {
+  font-size: 0.78rem;
+  color: #e53935;
+  font-weight: var(--sf-fw-semibold);
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height 0.3s ease,
+              opacity 0.3s ease,
+              transform 0.3s ease;
+  padding-left: 2px;
+}
+
+.auth-field-error.visible {
+  max-height: 28px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Red border when field is invalid */
+.auth-input-wrap.has-error {
+  border-color: #e53935;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.15);
+}
+
+.auth-input-wrap.has-error .auth-input-icon {
+  color: #e53935;
+}
+
 .auth-link:hover {
   color: var(--sf-primary-dark);
   text-decoration: underline;
